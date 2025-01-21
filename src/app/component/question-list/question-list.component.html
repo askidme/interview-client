@@ -1,0 +1,29 @@
+<div class="container">
+  <h2 class="title">Interview Questions</h2>
+
+  <mat-card *ngIf="question; else noMoreQuestions" class="question-card">
+    <mat-card-header>
+      <mat-card-title>Question</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <h4>{{ question.question }}</h4>
+      <div [innerHTML]="question.answer" *ngIf="showAnswer" class="answer"></div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="showAnswer = !showAnswer">
+        {{ showAnswer ? 'Hide Answer' : 'Show Answer' }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <ng-template #noMoreQuestions>
+    <p>No more questions available.</p>
+  </ng-template>
+
+  <div class="navigation">
+    <button mat-raised-button color="accent" (click)="nextQuestion()" [disabled]="!question">
+      Next
+    </button>
+  </div>
+</div>
+

@@ -1,0 +1,13 @@
+<div>
+  <h2>Select a Topic</h2>
+  <mat-form-field appearance="fill">
+    <mat-label>Topics</mat-label>
+    <mat-select [(value)]="selectedTopicId">
+      <mat-option *ngFor="let topic of topics" [value]="topic.topicId">
+        {{ topic.title }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="onSelectTopic()">Submit</button>
+</div>
+
