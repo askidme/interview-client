@@ -1,33 +1,73 @@
 <div class="registration-container">
   <h2>User Registration</h2>
+
+  <!-- Angular Reactive Form -->
   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="fill">
-      <mat-label>First Name</mat-label>
-      <input matInput formControlName="firstname" placeholder="Enter your first name" />
-      <mat-error *ngIf="registrationForm.get('firstname')?.invalid">First name is required</mat-error>
-    </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Last Name</mat-label>
-      <input matInput formControlName="lastname" placeholder="Enter your last name" />
-      <mat-error *ngIf="registrationForm.get('lastname')?.invalid">Last name is required</mat-error>
-    </mat-form-field>
+    <!-- First Name -->
+    <div class="form-group">
+      <label for="firstname">First Name</label>
+      <input
+        id="firstname"
+        type="text"
+        placeholder="Enter your first name"
+        formControlName="firstname"
+      />
+      <div *ngIf="registrationForm.get('firstname')?.invalid && registrationForm.get('firstname')?.touched" class="error-message">
+        First name is required
+      </div>
+    </div>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email" type="email" placeholder="Enter your email" />
-      <mat-error *ngIf="registrationForm.get('email')?.invalid">Valid email is required</mat-error>
-    </mat-form-field>
+    <!-- Last Name -->
+    <div class="form-group">
+      <label for="lastname">Last Name</label>
+      <input
+        id="lastname"
+        type="text"
+        placeholder="Enter your last name"
+        formControlName="lastname"
+      />
+      <div *ngIf="registrationForm.get('lastname')?.invalid && registrationForm.get('lastname')?.touched" class="error-message">
+        Last name is required
+      </div>
+    </div>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Password</mat-label>
-      <input matInput formControlName="password" type="password" placeholder="Enter your password" />
-      <mat-error *ngIf="registrationForm.get('password')?.invalid">
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        type="email"
+        placeholder="Enter your email"
+        formControlName="email"
+      />
+      <div
+        *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched"
+        class="error-message"
+      >
+        Valid email is required
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        id="password"
+        type="password"
+        placeholder="Enter your password"
+        formControlName="password"
+      />
+      <div
+        *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched"
+        class="error-message"
+      >
         Password must be at least 6 characters
-      </mat-error>
-    </mat-form-field>
+      </div>
+    </div>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="registrationForm.invalid">
+    <!-- Submit Button -->
+    <button type="submit" [disabled]="registrationForm.invalid">
       Register
     </button>
   </form>

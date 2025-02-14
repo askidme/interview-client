@@ -1,0 +1,49 @@
+<div class="question-container">
+  <h2>Question #{{ this.currentQuestion }}</h2>
+
+  <!-- Question Text -->
+  <div class="question-text">
+    <p>{{ interviewQuestion?.question }}</p>
+  </div>
+
+  <!-- Show Answer Button -->
+  <button (click)="toggleAnswer()">
+    {{ showAnswer ? 'Hide Answer' : 'Show Answer' }}
+  </button>
+
+
+
+  <!-- Confidence Level Buttons -->
+<!--  <div class="confidence-buttons">-->
+<!--    <button>Unfamiliar</button>-->
+<!--    <button>Low Confidence</button>-->
+<!--    <button>Medium Confidence</button>-->
+<!--    <button>Enough Confidence</button>-->
+<!--    <button>High Confidence</button>-->
+<!--  </div>-->
+
+  <!-- Navigation Controls -->
+  <div class="navigation">
+    <button (click)="navigateToQuestion(1)" [disabled]="currentQuestion === 1">First</button>
+    <button (click)="navigateToQuestion(currentQuestion - 1)" [disabled]="currentQuestion === 1">Back</button>
+
+    <span *ngFor="let num of [].constructor(totalQuestions); let i = index">
+      <button (click)="navigateToQuestion(i + 1)" [disabled]="currentQuestion === i + 1">
+        {{ i + 1 }}
+      </button>
+    </span>
+
+    <button (click)="navigateToQuestion(currentQuestion + 1)" [disabled]="currentQuestion === totalQuestions">Next</button>
+    <button (click)="navigateToQuestion(totalQuestions)" [disabled]="currentQuestion === totalQuestions">Last</button>
+  </div>
+
+  <!-- Finish and Next Buttons -->
+  <div class="final-buttons">
+    <button (click)="finishInterview()">Finish</button>
+    <button (click)="navigateToQuestion(currentQuestion + 1)" [disabled]="currentQuestion === totalQuestions">Next</button>
+  </div>
+  <!-- Answer (Visible if Show Answer is clicked) -->
+  <div *ngIf="showAnswer" class="answer-text">
+    <div [innerHTML]="interviewQuestion?.answer"></div>
+  </div>
+</div>

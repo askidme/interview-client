@@ -3,17 +3,13 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../service/auth/auth.service';
 import {CommonModule} from '@angular/common';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatButtonModule} from '@angular/material/button';
+;
 import {tap} from 'rxjs';
 
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule,
-    MatFormFieldModule,
-    MatInputModule, MatButtonModule, ReactiveFormsModule],
+  imports: [CommonModule,ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   standalone: true
@@ -41,9 +37,9 @@ export class LoginComponent {
           tap((response) => {
             localStorage.setItem('token', response.token); // Save the token
             alert('Login successful!');
+            this.authService.getUser();
             // this.router.navigate(['/']);
             const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-            console.log(`returnUrl - ${returnUrl}`);
             this.router.navigate([returnUrl]);
           })
         )

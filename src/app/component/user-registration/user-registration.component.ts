@@ -2,19 +2,13 @@ import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {CommonModule} from '@angular/common';
-import {MatFormFieldModule} from '@angular/material/form-field';
-
 import {AuthService} from '../../service/auth/auth.service';
-import {MatInputModule} from '@angular/material/input';
-import {MatButtonModule} from '@angular/material/button';
 import {User} from '../../model/user.model';
 
 
 @Component({
   selector: 'app-user-registration',
-  imports: [CommonModule,
-    MatFormFieldModule,
-    MatInputModule, MatButtonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './user-registration.component.html',
   styleUrl: './user-registration.component.css',
   standalone: true

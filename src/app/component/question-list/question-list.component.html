@@ -1,20 +1,28 @@
 <div class="container">
   <h2 class="title">Interview Questions</h2>
 
-  <mat-card *ngIf="question; else noMoreQuestions" class="question-card">
-    <mat-card-header>
-      <mat-card-title>Question</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
+  <!-- If there's a question, display it. Otherwise, show 'noMoreQuestions' -->
+  <div class="question-card" *ngIf="question; else noMoreQuestions">
+    <!-- Header -->
+    <div class="question-card-header">
+      <h3>Question</h3>
+    </div>
+
+    <!-- Main Content -->
+    <div class="question-card-content">
       <h4>{{ question.question }}</h4>
-      <div [innerHTML]="question.answer" *ngIf="showAnswer" class="answer"></div>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="showAnswer = !showAnswer">
+      <div *ngIf="showAnswer" [innerHTML]="question.answer" class="answer"></div>
+    </div>
+
+    <!-- Actions (Show/Hide Answer) -->
+    <div class="question-card-actions">
+      <button (click)="showAnswer = !showAnswer">
         {{ showAnswer ? 'Hide Answer' : 'Show Answer' }}
       </button>
-    </mat-card-actions>
-    <mat-card-actions>
+    </div>
+
+    <!-- Confidence & Progress -->
+    <div class="question-card-progress">
       <label for="confidence">Confidence Level:</label>
       <select id="confidence" [(ngModel)]="confidenceLevel">
         <option value="UNFAMILIAR">Unfamiliar</option>
@@ -25,18 +33,16 @@
       </select>
 
       <button (click)="submitProgress()">Save Progress</button>
+    </div>
+  </div>
 
-    </mat-card-actions>
-  </mat-card>
-
+  <!-- No More Questions Template -->
   <ng-template #noMoreQuestions>
     <p>No more questions available.</p>
   </ng-template>
 
+  <!-- Navigation -->
   <div class="navigation">
-    <button mat-raised-button color="accent" (click)="nextQuestion()" [disabled]="!question">
-      Next
-    </button>
+    <button (click)="nextQuestion()" [disabled]="!question">Next</button>
   </div>
 </div>
-

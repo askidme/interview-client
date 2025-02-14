@@ -3,7 +3,6 @@ import {catchError, throwError} from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const token = localStorage.getItem('token'); // Retrieve the token
-  console.log(`token: ${token}`);
   // Clone the request and add the Authorization header if the token exists
   const authReq = req.clone({
     setHeaders: {
@@ -11,7 +10,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     },
     withCredentials: true, // Required if backend CORS allows credentials
   });
-  console.log(`authReq: ${JSON.stringify(authReq)}`);
   return next(authReq).pipe(
     catchError((error) => {
       // Optionally handle errors

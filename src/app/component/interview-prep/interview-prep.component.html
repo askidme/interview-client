@@ -1,0 +1,51 @@
+<div class="interview-prep-container">
+  <h2>Interview Questions Preparation</h2>
+
+  <!-- Technology Dropdown -->
+  <label for="technology">Select Technology:</label>
+  <select id="technology" [(ngModel)]="selectedTechnologyId" (change)="onTechnologyChange()">
+    <option *ngFor="let tech of technologies" [value]="tech.id">
+      {{ tech.name }} ({{ tech.code }})
+    </option>
+  </select>
+
+  <!-- Topics Dropdown -->
+  <label for="topic">Select Topic:</label>
+  <select id="topic" [(ngModel)]="selectedTopicId">
+    <option *ngFor="let topic of topics" [value]="topic.topicId">{{ topic.title }}</option>
+  </select>
+
+  <button (click)="addTopic()">Add</button>
+
+  <!-- Topics Table -->
+  <table>
+    <thead>
+    <tr>
+      <th>Topic Name</th>
+      <th>Unfamiliar</th>
+      <th>Low Confidence</th>
+      <th>Medium Confidence</th>
+      <th>Enough Confidence</th>
+      <th>High Confidence</th>
+      <th>All</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let topic of selectedTopics">
+      <td>{{ topic.name }}</td>
+      <td><input type="checkbox" [(ngModel)]="topic.confidenceLevels.UNFAMILIAR" /></td>
+      <td><input type="checkbox" [(ngModel)]="topic.confidenceLevels.LOW" /></td>
+      <td><input type="checkbox" [(ngModel)]="topic.confidenceLevels.MEDIUM" /></td>
+      <td><input type="checkbox" [(ngModel)]="topic.confidenceLevels.ENOUGH" /></td>
+      <td><input type="checkbox" [(ngModel)]="topic.confidenceLevels.HIGH" /></td>
+      <td><input type="checkbox" [(ngModel)]="topic.confidenceLevels.ALL" (change)="toggleAllConfidence(topic)" /></td>
+      <td>
+        <button class="delete-btn" (click)="deleteTopic(topic.id)">🗑️</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <button class="start-btn" (click)="startInterview()">Start</button>
+</div>

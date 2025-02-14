@@ -1,29 +1,41 @@
 .header-container {
-  background-color: #3f51b5;
-  padding: 10px;
+  width: 100%;
+  margin: 0;        /* Remove any default margin  */
+  padding: 0;       /* Remove any default padding */
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #2196f3; /* Bluish header */
+  padding: 0.75rem 1rem;
 }
 
-ul {
+/* Brand / Logo */
+.brand {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* Navigation Links */
+.header-container ul {
   list-style: none;
   margin: 0;
   padding: 0;
+
   display: flex;
-  justify-content: space-around;
+  gap: 1rem;
 }
 
-li {
-  display: inline;
-}
-
-a {
+.header-container a {
+  color: #fff;
   text-decoration: none;
-  color: white;
-  font-weight: bold;
-  padding: 5px 10px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-a:hover {
-  background-color: #5c6bc0;
+  transition: color 0.2s ease;
+  &:hover {
+    color: #e3f2fd; /* Slightly lighter text on hover */
+  }
 }

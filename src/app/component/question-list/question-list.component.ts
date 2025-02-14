@@ -3,15 +3,14 @@ import {InterviewQuestion} from '../../model/interview-question.model';
 import {InterviewQuestionService} from '../../service/interview/interview-question.service';
 import {ActivatedRoute} from '@angular/router';
 import {CommonModule} from '@angular/common';
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
+
 import {UserQuestion} from '../../model/user-question.model';
 import {FormsModule} from '@angular/forms';
 import {UserQuestionService} from '../../service/user/user-question.service';
 
 @Component({
   selector: 'app-question-list',
-  imports: [CommonModule, MatCardModule, MatButtonModule, FormsModule ],
+  imports: [CommonModule, FormsModule ],
   templateUrl: './question-list.component.html',
   styleUrl: './question-list.component.css',
   standalone: true
@@ -67,7 +66,6 @@ export class QuestionListComponent implements OnInit {
     };
     this.userQuestionService.saveOrUpdateUserQuestion(userQuestion).subscribe({
       next: (response) => {
-        console.log('Progress saved:', response);
         // Logic to move to the next question
       },
       error: (err) => {

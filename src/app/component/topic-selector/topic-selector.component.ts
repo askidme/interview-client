@@ -2,16 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {Topic} from '../../model/topic.model';
 import {TopicService} from '../../service/topic/topic.service';
 import {Router} from '@angular/router';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
 import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
 
 @Component({
   selector: 'app-topic-selector',
-  imports: [CommonModule,
-    MatFormFieldModule,
-    MatSelectModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './topic-selector.component.html',
   styleUrl: './topic-selector.component.css',
   standalone: true
