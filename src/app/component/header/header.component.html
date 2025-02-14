@@ -1,12 +1,12 @@
 <nav class="header-container">
   <!-- Optional brand or logo -->
-  <a class="brand" routerLink="/">MyApp</a>
+  <a class="brand" routerLink="/">OnPoint</a>
 
   <ul>
-    <li><a routerLink="/topic">Interview</a></li>
+    <li *ngIf="isAuthenticated"><a routerLink="/topic">Interview</a></li>
     <li *ngIf="!isAuthenticated"><a routerLink="/register">Register</a></li>
     <li *ngIf="!isAuthenticated"><a routerLink="/login">Login</a></li>
-    <li *ngIf="isAuthenticated"><a (click)="logout()">Logout</a></li>
+    <li *ngIf="isAuthenticated"><a routerLink = "#" (click)="logout()">Logout</a></li>
   </ul>
 </nav>
 

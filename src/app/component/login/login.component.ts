@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../service/auth/auth.service';
 import {CommonModule} from '@angular/common';
 ;
-import {tap} from 'rxjs';
+import {BehaviorSubject, Observable, tap} from 'rxjs';
 
 
 @Component({
@@ -16,6 +16,7 @@ import {tap} from 'rxjs';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
 
   constructor(
     private fb: FormBuilder,
@@ -33,17 +34,13 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService
         .login(this.loginForm.value)
-        .pipe(
-          tap((response) => {
-            localStorage.setItem('token', response.token); // Save the token
-            alert('Login successful!');
-            this.authService.getUser();
-            // this.router.navigate(['/']);
-            const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-            this.router.navigate([returnUrl]);
-          })
-        )
         .subscribe({
+          next: () => { // Use next instead of tap here
+            alert('Login successful!');
+            this.authService.getUser(); // If needed
+            const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+            this.router.navigate([returnUrl]); // Navigate after successful login
+          },
           error: (error) => {
             console.error('Login failed', error);
             alert('Invalid email or password. Please try again.');

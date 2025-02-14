@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, tap  } from 'rxjs';
 import {User} from '../../model/user.model';
 import {jwtDecode} from 'jwt-decode';
 
@@ -10,15 +10,25 @@ import {jwtDecode} from 'jwt-decode';
 })
 export class AuthService {
   private baseUrl = 'http://localhost:8080/users';
-
-  constructor(private http: HttpClient) {}
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  public isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
+  constructor(private http: HttpClient) {
+    // Check for existing token on initialization (e.g., from localStorage)
+    const token = localStorage.getItem('token');
+    this.isAuthenticatedSubject.next(!!token); // Set initial value
+  }
 
   register(user: User): Observable<any> {
     return this.http.post(`${this.baseUrl}/register`, user);
   }
 
   login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/login`, credentials);
+    return this.http.post(`${this.baseUrl}/login`, credentials).pipe(
+      tap((response: any) => { // Type the response (important!)
+        localStorage.setItem('token', response.token);
+        this.isAuthenticatedSubject.next(true); // Update authentication status
+      })
+    );
   }
 
   isAuthenticated(): boolean {
@@ -27,6 +37,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token'); // Clear the token on logout
+    this.isAuthenticatedSubject.next(false);
   }
 
   getUser(): User {

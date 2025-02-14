@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../service/auth/auth.service';
 import {Router, RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
@@ -10,13 +10,15 @@ import {CommonModule} from '@angular/common';
   styleUrl: './header.component.css',
   standalone: true
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   isAuthenticated = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {
-    this.isAuthenticated = this.authService.isAuthenticated();
+  ngOnInit() {
+    this.authService.isAuthenticated$.subscribe(isAuthenticated => { // Use the correct property name
+      this.isAuthenticated = isAuthenticated;
+    });
   }
 
   logout(): void {
